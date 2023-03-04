@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+//import com.skilldistillery.advancedrequesthandling.data.State;
 import com.skilldistillery.film.data.FilmDAO;
 import com.skilldistillery.film.entities.Film;
 
@@ -19,6 +22,15 @@ public class FilmController {
 		Film TEST = filmDao.findFilmById(1);
 		model.addAttribute("TESTFILM", TEST);
 		return "home";
+	}
+	
+	@RequestMapping(path = "GetFilmData.do", params = "id", method = RequestMethod.GET)
+	public ModelAndView findFilmByID(int id) {
+		ModelAndView mv = new ModelAndView();
+		Film film = filmDao.findFilmById(id);
+		mv.addObject("film", film);
+		mv.setViewName("home");
+		return mv;
 	}
 	
 }
