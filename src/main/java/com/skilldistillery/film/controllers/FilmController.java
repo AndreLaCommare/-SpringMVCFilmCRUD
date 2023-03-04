@@ -46,8 +46,11 @@ public class FilmController {
 	}
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> 072cc883bbd331b6e296013459a1056c51aa6118
 	@RequestMapping(path = "DeleteFilm.do")
 	public void print() {
 		System.out.println("in delete film");
@@ -73,6 +76,9 @@ public class FilmController {
 	}
 	
 	
+<<<<<<< HEAD
+>>>>>>> 072cc883bbd331b6e296013459a1056c51aa6118
+=======
 >>>>>>> 072cc883bbd331b6e296013459a1056c51aa6118
 	
 	
