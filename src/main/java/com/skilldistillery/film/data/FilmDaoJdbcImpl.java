@@ -65,12 +65,12 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			if (filmResult.next()) {
 				film = new Film(filmResult.getInt("id"), filmResult.getString("title"),
 						filmResult.getString("description"), filmResult.getInt("release_year"),
-						filmResult.getInt("language_id"), filmResult.getInt("rental_duration"),
+						filmResult.getString("language.name"), filmResult.getInt("rental_duration"),
 						filmResult.getDouble("rental_rate"), filmResult.getInt("length"),
 						filmResult.getDouble("replacement_cost"), filmResult.getString("rating"),
 						filmResult.getString("special_features"));
 				film.setCast(findActorsByFilmId(filmId));
-				film.setLanguage(filmResult.getString("language.name"));
+				film.setLangName(filmResult.getString("language.name"));
 			}
 
 			filmResult.close();
@@ -124,7 +124,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				String title = rs.getString("title");
 				String desc = rs.getString("description");
 				Integer releaseYear = rs.getInt("release_year");
-				int langId = rs.getInt("language_id");
+				String language = rs.getString("language.name");
 				int rentDur = rs.getInt("rental_duration");
 				double rate = rs.getDouble("rental_rate");
 				int length = rs.getInt("length");
@@ -132,7 +132,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				String rating = rs.getString("rating");
 				String features = rs.getString("special_features");
 
-				Film film = new Film(filmId, title, desc, releaseYear, langId, rentDur, rate, length, repCost, rating,
+				Film film = new Film(filmId, title, desc, releaseYear, language, rentDur, rate, length, repCost, rating,
 						features);
 				films.add(film);
 			}
@@ -153,16 +153,16 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			String sql = "SELECT film.*, language.name FROM film JOIN language ON film.language_id = language.id"
 					+ " WHERE title LIKE ? OR description LIKE ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, "%" + input + "%");
-			stmt.setString(2, "%" + input + "%");
+			stmt.setString(1, "%" + keyword + "%");
+			stmt.setString(2, "%" + keyword + "%");
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				Film film = new Film(rs.getInt("id"), rs.getString("title"), rs.getString("description"),
-						rs.getInt("release_year"), rs.getInt("language_id"), rs.getInt("rental_duration"),
+						rs.getInt("release_year"), rs.getString("language.name"), rs.getInt("rental_duration"),
 						rs.getDouble("rental_rate"), rs.getInt("length"), rs.getDouble("replacement_cost"),
 						rs.getString("rating"), rs.getString("special_features"));
 				film.setCast(findActorsByFilmId(rs.getInt("film.id")));
-				film.setLanguage(rs.getString("language.name"));
+				film.setLangName(rs.getString("language.name"));
 				filmsWithKeyword.add(film);
 
 			}
