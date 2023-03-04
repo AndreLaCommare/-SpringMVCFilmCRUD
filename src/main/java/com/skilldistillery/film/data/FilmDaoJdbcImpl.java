@@ -280,8 +280,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			st.setString(10, film.getSpecialFeatures());
 			st.setInt(11, film.getId());
 		    
-		    System.out.println(film.getId() +" film's id/");
-		    System.out.println(filmID +"  id/");
+		 
 		    
 
 			int updateCount= st.executeUpdate();
