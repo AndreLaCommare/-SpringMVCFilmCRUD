@@ -9,6 +9,16 @@ import com.skilldistillery.film.entities.Film;
 
 @Component
 public class FilmDaoJdbcImpl implements FilmDAO {
+	
+	static {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.err.println("Error loading MySQL Driver");
+			throw new RuntimeException("Unable to load MySQL Driver class");
+		}
+	}
 
 	@Override
 	public Actor findActorById(int actorId) {
