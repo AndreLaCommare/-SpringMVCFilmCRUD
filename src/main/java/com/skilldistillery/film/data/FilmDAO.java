@@ -21,5 +21,5 @@ public interface FilmDAO {
 
 	boolean deleteFilm(int filmId);
 
-	Film updateFilm(int filmId, Film film);
+	Film updateFilm(int filmID, Film film);
 }
