@@ -24,6 +24,7 @@
         <li>${film.specialFeatures}</li>
       </ul>
     </c:when>
+    
     <c:otherwise>
       <p>No film found</p>
     </c:otherwise>

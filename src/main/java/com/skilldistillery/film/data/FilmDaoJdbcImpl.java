@@ -186,7 +186,6 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			conn.setAutoCommit(false); // Start transaction
 			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-
 			st.setString(1, film.getTitle());
 			st.setString(2, film.getDescription());
 			st.setInt(3, film.getReleaseYear());
@@ -229,8 +228,33 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 
 	@Override
 	public boolean deleteFilm(int filmId) {
-		// TODO Auto-generated method stub
-		return false;
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+			conn.setAutoCommit(false);
+
+			String sql = "DELETE FROM film WHERE film.id = ?";
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, filmId);
+			int updateCount = st.executeUpdate();
+
+			if (updateCount >= 0 && updateCount <= 1) {
+				conn.commit();
+			} else {
+				conn.rollback();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e2) {
+					System.out.println("Error on rollback");
+				}
+			}
+			return false;
+		}
+		return true;
 	}
 
 	@Override
