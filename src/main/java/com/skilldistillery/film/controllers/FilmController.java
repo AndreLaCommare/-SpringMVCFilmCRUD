@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -43,6 +44,31 @@ public class FilmController {
 		mv.setViewName("home");
 		return mv;
 	}
+	
+	@RequestMapping(path = "DeleteFilm.do")
+	public void print() {
+		System.out.println("in delete film");
+	}
+	
+	@RequestMapping(path = "UpdateFilm.do")
+	public ModelAndView updateFilm(Film film, RedirectAttributes redir) {
+		
+		filmDao.updateFilm(film.getId(), film );
+		ModelAndView mv = new ModelAndView();
+		redir.addFlashAttribute("film", film);
+		mv.setViewName("home");
+		return mv;
+	}
+	
+	@RequestMapping(path = "UpdateFilmForm.do", method=RequestMethod.GET)
+	public ModelAndView updateFilmForm(@RequestParam int id) {
+		Film film = filmDao.findFilmById(id);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("film", film);
+		mv.setViewName("updateFilm");
+		return mv;
+	}
+	
 	
 	
 	

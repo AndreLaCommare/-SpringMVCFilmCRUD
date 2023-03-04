@@ -24,7 +24,8 @@
         <li>Rating: ${film.rating}</li>
         <li>Special Features: ${film.specialFeatures}</li>
       </ul>
-    	
+   <a href="DeleteFilm.do?id=${film.id }">Delete Current Film</a>
+   <a href="UpdateFilmForm.do?id=${film.id }">Update Current Film</a>
     	
     </c:when>
     
