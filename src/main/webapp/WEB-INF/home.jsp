@@ -8,8 +8,25 @@
 <title>Film Site</title>
 </head>
 <body>
-
-<h1>Welcome to The Film Site!</h1>
-<h2>${TESTFILM.title }</h2>
+<c:choose>
+    <c:when test="${! empty film}">
+      <ul>
+        <li>${film.id}</li>
+        <li>${film.title}</li>
+        <li>${film.description}</li>
+        <li>${film.releaseYear}</li>
+        <li>${film.langName}</li>
+        <li>${film.duration}</li>
+        <li>${film.rentalRate}</li>
+        <li>${film.length}</li>
+        <li>${film.replacementCost}</li>
+        <li>${film.rating}</li>
+        <li>${film.specialFeatures}</li>
+      </ul>
+    </c:when>
+    <c:otherwise>
+      <p>No film found</p>
+    </c:otherwise>
+  </c:choose>
 </body>
 </html>
