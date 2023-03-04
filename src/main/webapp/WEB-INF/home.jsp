@@ -9,5 +9,6 @@
 <body>
 
 <h1>Welcome to The Film Site!</h1>
+<h2>${TESTFILM.title }</h2>
 </body>
 </html>
