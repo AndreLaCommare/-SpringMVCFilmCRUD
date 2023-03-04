@@ -1,5 +1,8 @@
 # -SpringMVCFilmCRUD
-Authors: Andre La Commare, Dominic Surina
+<h4>Authors</h4>
+<ul>
+<li>Andre La Commare</li><li>Dominic Surina</li>
+</ul>
 
 ## Description
 
