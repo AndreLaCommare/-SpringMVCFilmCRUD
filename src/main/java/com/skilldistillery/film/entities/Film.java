@@ -16,9 +16,14 @@ public class Film {
 	private String rating;
 	private String specialFeatures;
 	private List<Film> film;
+
 	private List<Actor> cast;
+	private int lang_id;
 
 	// methods
+	public Film() {
+		
+	}
 
 	public Film(int id, String title, String desc, int releaseYear, String rating, String langName, List<Actor> cast) {
 		this.id = id;
@@ -37,6 +42,35 @@ public class Film {
 		this.description = description;
 		this.releaseYear = releaseYear;
 		this.langName = langName;
+		this.duration = duration;
+		this.rentalRate = rentalRate;
+		this.length = length;
+		this.replacementCost = replacementCost;
+		this.rating = rating;
+		this.specialFeatures = specialFeatures;
+	}
+	
+	public Film(int id, String title, String description, int releaseYear, int lang_id, int duration,
+			Double rentalRate, Integer length, Double replacementCost, String rating, String specialFeatures) {
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.releaseYear = releaseYear;
+		this.lang_id = lang_id;
+		this.duration = duration;
+		this.rentalRate = rentalRate;
+		this.length = length;
+		this.replacementCost = replacementCost;
+		this.rating = rating;
+		this.specialFeatures = specialFeatures;
+	}
+	public Film( String title, String description, int releaseYear, int lang_id, int duration,
+			Double rentalRate, Integer length, Double replacementCost, String rating, String specialFeatures) {
+		
+		this.title = title;
+		this.description = description;
+		this.releaseYear = releaseYear;
+		this.lang_id = lang_id;
 		this.duration = duration;
 		this.rentalRate = rentalRate;
 		this.length = length;
@@ -87,6 +121,13 @@ public class Film {
 
 	public void setReleaseYear(int releaseYear) {
 		this.releaseYear = releaseYear;
+	}
+	public int getLang_id() {
+		return lang_id;
+	}
+	
+	public void setLang_id(int lang_id) {
+		this.lang_id = lang_id;
 	}
 
 	public String getLangName() {
@@ -149,13 +190,16 @@ public class Film {
 		this.cast = cast;
 	}
 
+	
+	
 	@Override
 	public String toString() {
-		String cleanCast = cast.toString().replace("[", "").replace("]", " ").replace(",", "");
-		return "\nTitle: " + title + ", Release Year: " + releaseYear + ", Rating: " + rating + ", Language: "
-				+ langName + ", Description: " + description + "\nCast: " + cleanCast;
+		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
+				+ ", duration=" + duration + ", rentalRate=" + rentalRate + ", length=" + length + ", replacementCost="
+				+ replacementCost + ", rating=" + rating + ", specialFeatures=" + specialFeatures + ", lang_id="
+				+ lang_id + "]";
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(description, duration, film, id, langName, length, rating, releaseYear, rentalRate,
