@@ -45,6 +45,7 @@ public class FilmController {
 		return mv;
 	}
 	
+
 	@RequestMapping(path = "DeleteFilm.do")
 	public ModelAndView deleteFilm(@RequestParam int id) {
 		boolean isDeleted = filmDao.deleteFilm(id);
@@ -75,7 +76,7 @@ public class FilmController {
 	}
 	
 	
-	
+
 	
 }
  
