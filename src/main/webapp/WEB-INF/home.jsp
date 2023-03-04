@@ -10,19 +10,22 @@
 <body>
 <c:choose>
     <c:when test="${! empty film}">
+  
       <ul>
-        <li>${film.id}</li>
-        <li>${film.title}</li>
-        <li>${film.description}</li>
-        <li>${film.releaseYear}</li>
-        <li>${film.langName}</li>
-        <li>${film.duration}</li>
-        <li>${film.rentalRate}</li>
-        <li>${film.length}</li>
-        <li>${film.replacementCost}</li>
-        <li>${film.rating}</li>
-        <li>${film.specialFeatures}</li>
+        <li>Film ID: ${film.id}</li>
+        <li>Film Title: ${film.title}</li>
+        <li>Film Description: ${film.description}</li>
+        <li>Release Year: ${film.releaseYear}</li>
+        <li>Language/ Language ID: ${film.langName} | ${film.lang_id}</li>
+        <li>Rental Duration: ${film.duration}</li>
+        <li>Rental Rate: ${film.rentalRate}</li>
+        <li>Length: ${film.length}</li>
+        <li>Replacement Cost: ${film.replacementCost}</li>
+        <li>Rating: ${film.rating}</li>
+        <li>Special Features: ${film.specialFeatures}</li>
       </ul>
+    	
+    	
     </c:when>
     <c:otherwise>
       <p>No film found</p>
