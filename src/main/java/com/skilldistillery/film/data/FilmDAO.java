@@ -17,9 +17,11 @@ public interface FilmDAO {
 
 	public List<Film> findFilmByKeyword(String keyword);
 
-	Film createFilm(Film film);
+	public Film createFilm(Film film);
 
 	boolean deleteFilm(int filmId);
 
-	Film updateFilm(int filmID, Film film);
+	public Film updateFilm(int filmID, Film film);
+	
+	public String categoryName(int filmId);
 }

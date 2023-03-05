@@ -72,6 +72,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 						filmResult.getString("special_features"));
 				film.setCast(findActorsByFilmId(filmId));
 				film.setLangName(filmResult.getString("language.name"));
+				film.categoryName(filmId);
 			}
 
 			filmResult.close();
@@ -257,19 +258,19 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 		return true;
 	}
 
+	@Override
 	public Film updateFilm(int filmID, Film film) {
 		// TODO Auto-generated method stub
-		 Connection conn = null;
-		  try {
-		    conn = DriverManager.getConnection(URL, user, pass);
-		    conn.setAutoCommit(false); // START TRANSACTION
-		    String sql = "UPDATE film SET title=?, description=?, release_year=?, language_id =?, rental_duration=?,"
-		    		+ " rental_rate=?, length=?, replacement_cost=?, rating=?, special_features=?"
-		    		+ " WHERE id=?";
-		    PreparedStatement st = conn.prepareStatement(sql);
-		    
-		    st.setString(1, film.getTitle());
-		    st.setString(2, film.getDescription());
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+			conn.setAutoCommit(false); // START TRANSACTION
+			String sql = "UPDATE film SET title=?, description=?, release_year=?, language_id =?, rental_duration=?,"
+					+ " rental_rate=?, length=?, replacement_cost=?, rating=?, special_features=?" + " WHERE id=?";
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			st.setString(1, film.getTitle());
+			st.setString(2, film.getDescription());
 			st.setInt(3, film.getReleaseYear());
 			st.setInt(4, film.getLang_id());
 			st.setInt(5, film.getDuration());
@@ -279,11 +280,8 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			st.setString(9, film.getRating());
 			st.setString(10, film.getSpecialFeatures());
 			st.setInt(11, film.getId());
-		    
-		 
-		    
 
-			int updateCount= st.executeUpdate();
+			int updateCount = st.executeUpdate();
 //			if (updateCount == 1) {
 //				ResultSet keys = st.getGeneratedKeys();
 //
@@ -311,7 +309,28 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 		}
 		return film;
 	}
-	
-	
+
+	@Override
+	public String categoryName(int filmId) {
+		Connection conn = null;
+		Film film = null;
+		String categoryName = "";
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+			String sql = " SELECT c.name  FROM film JOIN film_category fc ON film.id = fc.film_id join category c ON fc.category_id = c.id WHERE film.id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			ResultSet rs = stmt.executeQuery();
+			categoryName = rs.getString("c.name");
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(categoryName);
+		return categoryName;
+
+	}
 
 }

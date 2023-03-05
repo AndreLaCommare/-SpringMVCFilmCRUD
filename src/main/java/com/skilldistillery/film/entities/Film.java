@@ -15,14 +15,17 @@ public class Film {
 	private Double replacementCost;
 	private String rating;
 	private String specialFeatures;
+	private String category;
 	private List<Film> film;
-
 	private List<Actor> cast;
 	private int lang_id;
 
 	// methods
 	public Film() {
-		
+
+	}
+	public Film(String category) {
+		this.category = category;
 	}
 
 	public Film(int id, String title, String desc, int releaseYear, String rating, String langName, List<Actor> cast) {
@@ -49,9 +52,9 @@ public class Film {
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
 	}
-	
-	public Film(int id, String title, String description, int releaseYear, int lang_id, int duration,
-			Double rentalRate, Integer length, Double replacementCost, String rating, String specialFeatures) {
+
+	public Film(int id, String title, String description, int releaseYear, int lang_id, int duration, Double rentalRate,
+			Integer length, Double replacementCost, String rating, String specialFeatures) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -64,9 +67,10 @@ public class Film {
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
 	}
-	public Film( String title, String description, int releaseYear, int lang_id, int duration,
-			Double rentalRate, Integer length, Double replacementCost, String rating, String specialFeatures) {
-		
+
+	public Film(String title, String description, int releaseYear, int lang_id, int duration, Double rentalRate,
+			Integer length, Double replacementCost, String rating, String specialFeatures) {
+
 		this.title = title;
 		this.description = description;
 		this.releaseYear = releaseYear;
@@ -122,10 +126,11 @@ public class Film {
 	public void setReleaseYear(int releaseYear) {
 		this.releaseYear = releaseYear;
 	}
+
 	public int getLang_id() {
 		return lang_id;
 	}
-	
+
 	public void setLang_id(int lang_id) {
 		this.lang_id = lang_id;
 	}
@@ -189,9 +194,16 @@ public class Film {
 	public void setCast(List<Actor> cast) {
 		this.cast = cast;
 	}
+	
 
-	
-	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	@Override
 	public String toString() {
 		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", releaseYear=" + releaseYear
@@ -199,7 +211,7 @@ public class Film {
 				+ replacementCost + ", rating=" + rating + ", specialFeatures=" + specialFeatures + ", lang_id="
 				+ lang_id + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(description, duration, film, id, langName, length, rating, releaseYear, rentalRate,
@@ -222,5 +234,11 @@ public class Film {
 				&& Objects.equals(replacementCost, other.replacementCost)
 				&& Objects.equals(specialFeatures, other.specialFeatures) && Objects.equals(title, other.title);
 	}
+	public void categoryName(int filmId) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+
 
 }
