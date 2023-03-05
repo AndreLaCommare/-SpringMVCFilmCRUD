@@ -34,7 +34,7 @@
 			<input type="checkbox" name="specialFeatures" value ="Commentaries"> Commentaries
 			<input type="checkbox" name="specialFeatures" value ="Trailers"> Trailers
 			<input type="checkbox" name="specialFeatures" value = "Behind the Scenes"> Behind the Scenes <br>
-		
+		<p>Cast: ${film.cast.toString().replace("[", "").replace("]", " ").replace("Actor Name:", "")}</p>
 		<input type="submit" value="Update Film" />
 		
     </form>
