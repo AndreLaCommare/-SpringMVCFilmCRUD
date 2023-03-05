@@ -10,8 +10,9 @@
 <body>
 <c:choose>
 
-    <c:when test="${! empty film}">
-  
+    <c:when test="${! empty keyword}">
+  	
+  	<c:forEach items="${keyword }" var="film" >
       <ul>
         <li>Film ID: ${film.id}</li>
         <li>Film Title: ${film.title}</li>
@@ -25,10 +26,10 @@
         <li>Rating: ${film.rating}</li>
         <li>Special Features: ${film.specialFeatures}</li>
         <li>Cast: ${film.cast.toString().replace("[", "").replace("]", " ").replace("Actor Name:", "")}</li>
-     	<li>Category: ${film.category}</li>
       </ul>
    <a href="DeleteFilm.do?id=${film.id }">Delete Current Film</a>
    <a href="UpdateFilmForm.do?id=${film.id }">Update Current Film</a>
+  	</c:forEach>
     	
     </c:when>
     

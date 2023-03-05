@@ -1,5 +1,7 @@
 package com.skilldistillery.film.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,8 +55,8 @@ public class FilmController {
 		mv.addObject("film", isDeleted);
 		mv.setViewName("deleted");
 		return mv;
-		
-	}
+		}
+	
 	
 	@RequestMapping(path = "UpdateFilm.do")
 	public ModelAndView updateFilm(Film film, RedirectAttributes redir) {
@@ -74,6 +76,24 @@ public class FilmController {
 		mv.setViewName("updateFilm");
 		return mv;
 	}
+	
+	@RequestMapping(path = "GetFilmDataWithKeyword.do", params = "keyword", method = RequestMethod.GET)
+	public ModelAndView findFilmByKeyword(String keyword) {
+		List<Film> filmList= filmDao.findFilmByKeyword(keyword);
+		
+		ModelAndView mv = new ModelAndView();
+		
+	
+		mv.addObject("keyword", filmList);
+		mv.setViewName("findFilmbyKeyword");
+		
+
+	
+		
+		return mv;
+	}
+	
+	
 	
 	
 
