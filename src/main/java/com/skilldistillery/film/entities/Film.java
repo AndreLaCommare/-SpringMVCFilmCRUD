@@ -19,7 +19,7 @@ public class Film {
 	private List<Film> film;
 	private List<Actor> cast;
 	private int lang_id;
-
+	
 	// methods
 	public Film() {
 
@@ -51,6 +51,22 @@ public class Film {
 		this.replacementCost = replacementCost;
 		this.rating = rating;
 		this.specialFeatures = specialFeatures;
+	}
+	
+	public Film(int id, String title, String description, int releaseYear, String langName, int duration,
+			Double rentalRate, Integer length, Double replacementCost, String rating, String specialFeatures, String category) {
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.releaseYear = releaseYear;
+		this.langName = langName;
+		this.duration = duration;
+		this.rentalRate = rentalRate;
+		this.length = length;
+		this.replacementCost = replacementCost;
+		this.rating = rating;
+		this.specialFeatures = specialFeatures;
+		this.category = category;
 	}
 
 	public Film(int id, String title, String description, int releaseYear, int lang_id, int duration, Double rentalRate,

@@ -57,9 +57,10 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 	@Override
 	public Film findFilmById(int filmId) {
 		Film film = null;
+		if (filmId<1001) {
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
-			String sql = "SELECT film.*, language.name FROM film JOIN language ON film.language_id = language.id WHERE film.id = ?";
+			String sql = "SELECT film.*, language.name, category.name FROM film JOIN language ON film.language_id = language.id join film_category on film.id = film_category.film_id join category on film_category.category_id = category.id WHERE film.id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet filmResult = stmt.executeQuery();
@@ -69,7 +70,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 						filmResult.getString("language.name"), filmResult.getInt("rental_duration"),
 						filmResult.getDouble("rental_rate"), filmResult.getInt("length"),
 						filmResult.getDouble("replacement_cost"), filmResult.getString("rating"),
-						filmResult.getString("special_features"));
+						filmResult.getString("special_features"), filmResult.getString("category.name"));
 				film.setCast(findActorsByFilmId(filmId));
 				film.setLangName(filmResult.getString("language.name"));
 				film.categoryName(filmId);
@@ -82,6 +83,34 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			e.printStackTrace();
 		}
 		return film;
+		
+		}else {
+			try {
+				Connection conn = DriverManager.getConnection(URL, user, pass);
+				String sql = "SELECT film.*, language.name FROM film JOIN language ON film.language_id = language.id WHERE film.id = ?";
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, filmId);
+				ResultSet filmResult = stmt.executeQuery();
+				if (filmResult.next()) {
+					film = new Film(filmResult.getInt("id"), filmResult.getString("title"),
+							filmResult.getString("description"), filmResult.getInt("release_year"),
+							filmResult.getString("language.name"), filmResult.getInt("rental_duration"),
+							filmResult.getDouble("rental_rate"), filmResult.getInt("length"),
+							filmResult.getDouble("replacement_cost"), filmResult.getString("rating"),
+							filmResult.getString("special_features"));
+					film.setCast(findActorsByFilmId(filmId));
+					film.setLangName(filmResult.getString("language.name"));
+					film.categoryName(filmId);
+				}
+
+				filmResult.close();
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return film;
+		}
 	}
 
 	@Override
@@ -150,9 +179,10 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 	@Override
 	public List<Film> findFilmByKeyword(String keyword) {
 		List<Film> filmsWithKeyword = new ArrayList<>();
+		
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
-			String sql = "SELECT film.*, language.name FROM film JOIN language ON film.language_id = language.id"
+			String sql = "SELECT film.*, language.name, category.name FROM film JOIN language ON film.language_id = language.id join film_category on film.id = film_category.film_id join category on film_category.category_id = category.id"
 					+ " WHERE title LIKE ? OR description LIKE ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, "%" + keyword + "%");
@@ -162,7 +192,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				Film film = new Film(rs.getInt("id"), rs.getString("title"), rs.getString("description"),
 						rs.getInt("release_year"), rs.getString("language.name"), rs.getInt("rental_duration"),
 						rs.getDouble("rental_rate"), rs.getInt("length"), rs.getDouble("replacement_cost"),
-						rs.getString("rating"), rs.getString("special_features"));
+						rs.getString("rating"), rs.getString("special_features"), rs.getString("category.name"));
 				film.setCast(findActorsByFilmId(rs.getInt("film.id")));
 				film.setLangName(rs.getString("language.name"));
 				filmsWithKeyword.add(film);
@@ -282,22 +312,9 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			st.setInt(11, film.getId());
 
 			int updateCount = st.executeUpdate();
-//			if (updateCount == 1) {
-//				ResultSet keys = st.getGeneratedKeys();
-//
-//				if (keys.next()) {
-//					int newFilmId = keys.getInt(1);
-//					film.setId(newFilmId);
-//
-//				}
-//			} else {
-//
-//				film = null;
-//			}
-
 			conn.commit();
 			st.close();
-			conn.close();
+			conn.close(); 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			try {

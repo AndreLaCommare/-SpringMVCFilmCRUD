@@ -18,7 +18,7 @@
 		<label for="release_year">Release Year </label>
 		<input type="number" name="releaseYear" value="${film.releaseYear }"> <br>
 		<label for="language_id">Language ID: </label>
-		<input type="number" name="lang_id" value="1"> <br>
+		<input type="number" name="lang_id" value="${film.lang_id}"> <br>
 		<label for="rental_duration">Rental Duration  </label>
 		<input type="number" name="duration" value="${film.duration }" > <br>
 		<label for="rental_rate">Rental Rate </label>

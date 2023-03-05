@@ -27,13 +27,15 @@
         <li>Cast: ${film.cast.toString().replace("[", "").replace("]", " ").replace("Actor Name:", "")}</li>
      	<li>Category: ${film.category}</li>
       </ul>
-   <a href="DeleteFilm.do?id=${film.id }">Delete Current Film</a>
-   <a href="UpdateFilmForm.do?id=${film.id }">Update Current Film</a>
+   <a href="DeleteFilm.do?id=${film.id }">Delete Current Film</a> <br>
+   <a href="UpdateFilmForm.do?id=${film.id }">Update Current Film</a> <br>
+   <a href="index.html">Return to Menu</a>
     	
     </c:when>
     
     <c:otherwise>
       <p>No film found</p>
+       <a href="index.html">Return to Menu</a>
     </c:otherwise>
   </c:choose>
 </body>

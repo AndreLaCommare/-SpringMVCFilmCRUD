@@ -18,17 +18,20 @@
         <li>Film Title: ${film.title}</li>
         <li>Film Description: ${film.description}</li>
         <li>Release Year: ${film.releaseYear}</li>
-        <li>Language/ Language ID: ${film.langName} | ${film.lang_id}</li>
+        <li>Language: ${film.langName} </li>
         <li>Rental Duration: ${film.duration}</li>
         <li>Rental Rate: ${film.rentalRate}</li>
         <li>Length: ${film.length}</li>
         <li>Replacement Cost: ${film.replacementCost}</li>
         <li>Rating: ${film.rating}</li>
         <li>Special Features: ${film.specialFeatures}</li>
+        <li>Category: ${film.category}</li>
         <li>Cast: ${film.cast.toString().replace("[", "").replace("]", " ").replace("Actor Name:", "")}</li>
       </ul>
    <a href="DeleteFilm.do?id=${film.id }">Delete Current Film</a>
    <a href="UpdateFilmForm.do?id=${film.id }">Update Current Film</a>
+    <a href="index.html">Return to Menu</a>
+   
   	</c:forEach>
     	
     </c:when>
